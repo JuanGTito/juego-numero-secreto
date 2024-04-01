@@ -12,35 +12,41 @@ function asignarTextoElemento(element, texto){
 
 function intentoDeUsuario(){
     let numeroDeUsuario = parseInt(document.getElementById('numeroUsuario').value);
-    vidas--;
+    
     //console.log(intentos);
 
-    if (vidas === 0 & numeroDeUsuario != numeroSecreto){
-        vidasInt();
-        asignarTextoElemento('p', `¡Perdiste!`);
-        document.querySelector('#intentar').setAttribute('disabled', 'true');
-        document.getElementById('reiniciar').removeAttribute('disabled');
-        
-    }else{
-        if(numeroDeUsuario === numeroSecreto){
-            asignarTextoElemento('p', `Acertaste el número en ${intentos} ${(intentos === 1) ? 'vez' : 'veces'} `);
-            document.getElementById('reiniciar').removeAttribute('disabled');
-            vidasInt();
-            //El usuario no acerto
-        }else{
-            if(numeroDeUsuario > numeroSecreto){
-                asignarTextoElemento('p', 'El numero secreto es menor');
+    for (let index = 0; index < 11; index++) {
+        while (numeroDeUsuario === index) {
+            vidas--;
+            if (vidas === 0 & numeroDeUsuario != numeroSecreto){
                 vidasInt();
-
+                asignarTextoElemento('p', `¡Perdiste!`);
+                document.querySelector('#intentar').setAttribute('disabled', 'true');
+                document.getElementById('reiniciar').removeAttribute('disabled');
+                
             }else{
-                asignarTextoElemento('p', 'El numero secreto es mayor');
-                vidasInt();
-            }
-            intentos++;
-            limpiar();
+                if(numeroDeUsuario === numeroSecreto){
+                    asignarTextoElemento('p', `Acertaste el número en ${intentos} ${(intentos === 1) ? 'vez' : 'veces'} `);
+                    document.getElementById('reiniciar').removeAttribute('disabled');
+                    vidasInt();
+                    //El usuario no acerto
+                }else{
+                    if(numeroDeUsuario > numeroSecreto){
+                        asignarTextoElemento('p', 'El numero secreto es menor');
+                        vidasInt();
+        
+                    }else{
+                        asignarTextoElemento('p', 'El numero secreto es mayor');
+                        vidasInt();
+                    }
+                    intentos++;
+                    limpiar();
+                }
+            } 
+            return;  
         }
-    }
-    return;
+    } 
+    alert("INGRESE EL NUMERO SECRETO")   
 };
 
 function limpiar(){
